@@ -6,32 +6,20 @@ const links = [
   { href: 'product-omega.html', label: '巅峰 Omega' }
 ];
 
-function renderHeader(current) {
-  const nav = links.map(item => {
-    const active = item.href === current ? ' style="font-weight:700;color:#f8fafc"' : '';
+function getNavLinks(current) {
+  return links.map(item => {
+    const active = item.href === current ? ' class="active"' : '';
     return `<a href="${item.href}"${active}>${item.label}</a>`;
   }).join('');
-
-  return `
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="product-alpha.html">JiasuQi 加速器</a>
-      <nav>${nav}</nav>
-    </div>
-  </header>`;
 }
 
-function renderFooter() {
-  return `
-  <footer class="site-footer">
-    <div class="container">
-      <small>© 2026 JiasuQi Accelerator. All rights reserved.</small>
-      <small>7x24 客服：support@jiasuqi.example</small>
-    </div>
-  </footer>`;
-}
+async function mountLayout(current) {
+  const [headerTpl, footerTpl] = await Promise.all([
+    fetch('header.html').then(res => res.text()),
+    fetch('footer.html').then(res => res.text())
+  ]);
 
-function mountLayout(current) {
-  document.getElementById('shared-header').innerHTML = renderHeader(current);
-  document.getElementById('shared-footer').innerHTML = renderFooter();
+  document.getElementById('shared-header').innerHTML = headerTpl
+    .replace('{{NAV_LINKS}}', getNavLinks(current));
+  document.getElementById('shared-footer').innerHTML = footerTpl;
 }
