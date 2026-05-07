@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JiasuQi 共用 Header / Footer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="shared-header"></div>
+  <main class="container">
+    <section class="hero-copy" style="margin-top:24px;">
+      <h1>共用布局组件页</h1>
+      <p>此页用于展示全站共用的 Header 与 Footer，5 个产品页面均通过 <code>shared.js</code> 挂载此布局。</p>
+    </section>
+  </main>
+  <div id="shared-footer"></div>
+  <script src="shared.js"></script>
+  <script>mountLayout('product-alpha.html');</script>
+</body>
+</html>
